@@ -36,7 +36,343 @@
      This box is empty on purpose. In Part 7 you paste an interactive
      graphic BETWEEN the opening <div> and the closing </div> below.
      ===================================================================== -->
-<div class="showcase"></div>
+<div class="showcase">
+  <!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Cheese Showcase Demo</title>
+<!-- Demo page only: it provides the <div class="showcase"> wrapper, a page background, and a stand-in for the Fredoka font your site already loads. -->
+<style>
+  html, body { margin: 0; background: #e9e2d3; }
+  body { padding: 24px 12px; }
+</style>
+</head>
+<body>
+<div class="showcase">
+<!-- HTML: three cheese buttons with faces, sitting on a wooden board, plus a hanging price-tag card for nutrition info. -->
+<div class="sc-stage">
+  <button class="sc-cheese" type="button" data-cheese="parmesan" aria-pressed="false">
+    <svg class="sc-art" viewBox="0 0 100 80" aria-hidden="true">
+      <polygon points="6,52 38,22 94,34" fill="#f9e08a" stroke="#a87414" stroke-width="1.5" stroke-linejoin="round"/>
+      <polygon points="6,52 94,34 94,66 6,66" fill="#f0c040" stroke="#a87414" stroke-width="1.5" stroke-linejoin="round"/>
+      <polygon points="6,60 94,60 94,66 6,66" fill="#c98a2b"/>
+      <circle cx="20" cy="55" r="1.6" fill="#d9a52e"/><circle cx="72" cy="42" r="1.6" fill="#d9a52e"/><circle cx="80" cy="52" r="1.4" fill="#d9a52e"/>
+      <circle class="sc-eye" cx="34" cy="52" r="2.6"/><circle class="sc-eye" cx="54" cy="48" r="2.6"/>
+      <path class="sc-smile" d="M38 56 q7 4 14 -1"/>
+      <ellipse class="sc-o" cx="45" cy="56" rx="3" ry="4"/>
+    </svg>
+    <span class="sc-pool"></span>
+    <span class="sc-name">Parmesan</span>
+  </button>
+
+  <button class="sc-cheese" type="button" data-cheese="mozzarella" aria-pressed="false">
+    <svg class="sc-art" viewBox="0 0 100 80" aria-hidden="true">
+      <rect class="sc-neck" x="46" y="2" width="8" height="16" rx="4" fill="#fffaf0" stroke="#d8cdb6" stroke-width="2"/>
+      <circle cx="50" cy="44" r="30" fill="#fffaf0" stroke="#d8cdb6" stroke-width="2"/>
+      <ellipse cx="38" cy="30" rx="9" ry="5" fill="#fff" opacity="0.9" transform="rotate(-30 38 30)"/>
+      <path d="M64 22 q10 -6 15 4 q-10 6 -15 -4z" fill="#5f8f4e"/>
+      <circle class="sc-eye" cx="40" cy="44" r="3"/><circle class="sc-eye" cx="60" cy="44" r="3"/>
+      <path class="sc-smile" d="M43 54 q7 6 14 0"/>
+      <ellipse class="sc-o" cx="50" cy="55" rx="3.5" ry="4.5"/>
+    </svg>
+    <span class="sc-pool"></span>
+    <span class="sc-name">Mozzarella</span>
+  </button>
+
+  <button class="sc-cheese" type="button" data-cheese="burrata" aria-pressed="false">
+    <svg class="sc-art" viewBox="0 0 100 80" aria-hidden="true">
+      <ellipse cx="50" cy="49" rx="31" ry="27" fill="#fffaf0" stroke="#d8cdb6" stroke-width="2"/>
+      <path d="M50 22 C44 12 37 12 35 17 C40 19 44 21 50 23 C56 21 60 19 65 17 C63 12 56 12 50 22Z" fill="#fffaf0" stroke="#d8cdb6" stroke-width="2" stroke-linejoin="round"/>
+      <ellipse cx="36" cy="40" rx="8" ry="4.5" fill="#fff" opacity="0.9" transform="rotate(-30 36 40)"/>
+      <path class="sc-crack" d="M50 24 l-6 10 l8 7 l-7 12 l6 8"/>
+      <circle class="sc-eye" cx="40" cy="52" r="3"/><circle class="sc-eye" cx="60" cy="52" r="3"/>
+      <path class="sc-smile" d="M43 61 q7 6 14 0"/>
+      <ellipse class="sc-o" cx="50" cy="62" rx="3.5" ry="4.5"/>
+    </svg>
+    <span class="sc-pool"></span>
+    <span class="sc-name">Burrata</span>
+  </button>
+</div>
+
+<div class="sc-card" aria-live="polite">
+  <div class="sc-title">Click a cheese and see what happens</div>
+  <div class="sc-tiles"></div>
+  <div class="sc-note"></div>
+</div>
+
+<style>
+/* CSS: brand colors and font, the wooden board, idle bounce, each cheese's click move, and the price-tag card. Every rule starts with .showcase. */
+.showcase {
+  box-sizing: border-box;
+  max-width: 640px;
+  margin: 0 auto;
+  padding: 16px;
+  background: #f4efe6;
+  color: #3b2a1e;
+  font-family: 'Fredoka', sans-serif;
+  border-radius: 20px;
+}
+.showcase *, .showcase *::before, .showcase *::after { box-sizing: border-box; }
+
+.showcase .sc-stage {
+  display: flex;
+  justify-content: center;
+  align-items: flex-end;
+  gap: clamp(8px, 4vw, 32px);
+  padding: 44px 8px 0;
+  border-radius: 14px;
+  background: linear-gradient(to top, #8a5a34 0, #8a5a34 36px, transparent 36px);
+}
+.showcase .sc-cheese {
+  appearance: none;
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  width: clamp(84px, 28vw, 130px);
+  padding: 0;
+  border: 0;
+  background: none;
+  font: inherit;
+  color: inherit;
+  cursor: pointer;
+  -webkit-tap-highlight-color: transparent;
+}
+.showcase .sc-cheese:focus-visible { outline: 3px solid #d95d39; outline-offset: 4px; border-radius: 12px; }
+
+.showcase .sc-art { display: block; width: 100%; transform-origin: 50% 100%; animation: showcase-bounce 1.2s infinite; }
+.showcase .sc-cheese:nth-child(2) .sc-art { animation-delay: -0.4s; }
+.showcase .sc-cheese:nth-child(3) .sc-art { animation-delay: -0.8s; }
+
+.showcase .sc-name {
+  display: flex;
+  align-items: center;
+  height: 36px;
+  padding: 0 10px;
+  border-radius: 18px;
+  font-weight: 600;
+  font-size: 1rem;
+  color: #f4efe6;
+}
+.showcase .sc-cheese[aria-pressed="true"] .sc-name { background: #f4efe6; color: #3b2a1e; }
+
+/* Faces */
+.showcase .sc-eye { fill: #3b2a1e; transform-box: fill-box; transform-origin: center; }
+.showcase .sc-smile { fill: none; stroke: #3b2a1e; stroke-width: 2.2; stroke-linecap: round; }
+.showcase .sc-o { fill: #3b2a1e; display: none; }
+.showcase .sc-surprised .sc-eye { transform: scale(1.5); }
+.showcase .sc-surprised .sc-smile { display: none; }
+.showcase .sc-surprised .sc-o { display: block; }
+
+/* Spill and crumb pile that appear on the board */
+.showcase .sc-pool {
+  position: absolute;
+  left: 10%;
+  bottom: 34px;
+  width: 80%;
+  height: 10px;
+  border-radius: 50%;
+  opacity: 0;
+  transform: scaleX(0);
+  pointer-events: none;
+}
+.showcase .sc-cheese[data-cheese="burrata"] .sc-pool { background: #fffaf0; border: 2px solid #d8cdb6; }
+.showcase .sc-cheese[data-cheese="parmesan"] .sc-pool { background: #f0c040; border: 2px solid #c98a2b; }
+.showcase .sc-cheese[data-cheese="mozzarella"] .sc-pool { display: none; }
+
+/* Mozzarella stretchy neck and burrata crack */
+.showcase .sc-neck { opacity: 0; }
+.showcase .sc-crack { fill: none; stroke: #c9a46a; stroke-width: 2; stroke-linecap: round; stroke-dasharray: 60; stroke-dashoffset: 60; }
+
+/* Click moves */
+.showcase .sc-cheese.sc-go[data-cheese="burrata"] .sc-art { animation: showcase-splat 1.2s ease-out; }
+.showcase .sc-cheese.sc-go[data-cheese="burrata"] .sc-crack { animation: showcase-crack 0.6s ease-out forwards; }
+.showcase .sc-cheese.sc-go[data-cheese="burrata"] .sc-pool { animation: showcase-pool 2.2s ease-out; }
+.showcase .sc-cheese.sc-go[data-cheese="mozzarella"] .sc-art { animation: showcase-stretch 1.3s ease-in-out; }
+.showcase .sc-cheese.sc-go[data-cheese="mozzarella"] .sc-neck { opacity: 1; }
+.showcase .sc-cheese.sc-go[data-cheese="parmesan"] .sc-art { animation: showcase-shake 1s ease-in-out; }
+.showcase .sc-cheese.sc-go[data-cheese="parmesan"] .sc-pool { animation: showcase-pool 1.7s 0.5s ease-out; }
+.showcase .sc-flake {
+  position: absolute;
+  top: 34%;
+  width: 9px;
+  height: 5px;
+  border: 1px solid #c98a2b;
+  border-radius: 2px;
+  background: #f9e08a;
+  opacity: 0;
+  pointer-events: none;
+  animation: showcase-flake 0.9s ease-in forwards;
+}
+
+/* Price-tag card */
+.showcase .sc-card {
+  position: relative;
+  min-height: 150px;
+  margin-top: 16px;
+  padding: 14px 12px 12px;
+  background: #ffffff;
+  border: 2px solid #d95d39;
+  border-radius: 16px;
+  transform-origin: 14px 0;
+}
+.showcase .sc-card::before {
+  content: "";
+  position: absolute;
+  top: 8px;
+  left: 10px;
+  width: 10px;
+  height: 10px;
+  border: 2px solid #d95d39;
+  border-radius: 50%;
+  background: #f4efe6;
+}
+.showcase .sc-card.sc-pop { animation: showcase-tag 0.5s ease-out; }
+.showcase .sc-title { margin-bottom: 10px; text-align: center; font-weight: 600; font-size: 1.05rem; }
+.showcase .sc-tiles { display: grid; grid-template-columns: repeat(5, minmax(0, 1fr)); gap: 6px; }
+.showcase .sc-tile { padding: 8px 2px; text-align: center; background: #f4efe6; border-radius: 10px; }
+.showcase .sc-val { display: block; font-weight: 700; font-size: 1.1rem; color: #d95d39; }
+.showcase .sc-lab { display: block; font-size: 0.75rem; }
+.showcase .sc-note { margin-top: 8px; text-align: center; font-size: 0.8rem; }
+
+@keyframes showcase-bounce {
+  0%   { transform: translateY(0) scale(1.08, 0.92); animation-timing-function: ease-out; }
+  50%  { transform: translateY(-34px) scale(0.96, 1.04); animation-timing-function: ease-in; }
+  100% { transform: translateY(0) scale(1.08, 0.92); }
+}
+@keyframes showcase-splat {
+  0%   { transform: translateY(-20px) scale(0.96, 1.04); }
+  25%  { transform: translateY(0) scale(1.4, 0.6); }
+  50%  { transform: scale(1.2, 0.78); }
+  100% { transform: translateY(0) scale(1.08, 0.92); }
+}
+@keyframes showcase-crack { to { stroke-dashoffset: 0; } }
+@keyframes showcase-pool {
+  0%   { opacity: 1; transform: scaleX(0); }
+  25%  { opacity: 1; transform: scaleX(1); }
+  80%  { opacity: 1; transform: scaleX(1); }
+  100% { opacity: 0; transform: scaleX(1); }
+}
+@keyframes showcase-stretch {
+  0%   { transform: translateY(0) scale(1.08, 0.92); }
+  35%  { transform: translateY(-8px) scale(0.7, 1.55); }
+  55%  { transform: scale(1.25, 0.78); }
+  75%  { transform: scale(0.95, 1.05); }
+  100% { transform: translateY(0) scale(1.08, 0.92); }
+}
+@keyframes showcase-shake {
+  0%   { transform: scale(1.08, 0.92); }
+  20%  { transform: rotate(-7deg) scale(1.08, 0.92); }
+  40%  { transform: rotate(6deg) scale(1.08, 0.92); }
+  60%  { transform: rotate(-4deg) scale(1.08, 0.92); }
+  100% { transform: rotate(0) scale(1.08, 0.92); }
+}
+@keyframes showcase-flake {
+  0%   { opacity: 1; transform: translate(0, 0) rotate(0); }
+  85%  { opacity: 1; }
+  100% { opacity: 0; transform: translate(var(--dx), 75px) rotate(240deg); }
+}
+@keyframes showcase-tag {
+  0%   { opacity: 0; transform: translateY(-14px) rotate(-3deg); }
+  100% { opacity: 1; transform: none; }
+}
+
+@media (max-width: 480px) {
+  .showcase { padding: 12px; border-radius: 16px; }
+  .showcase .sc-name { font-size: 0.85rem; padding: 0 6px; }
+  .showcase .sc-val { font-size: 0.9rem; }
+  .showcase .sc-lab { font-size: 0.65rem; }
+}
+@media (prefers-reduced-motion: reduce) {
+  .showcase .sc-art, .showcase .sc-pool, .showcase .sc-flake, .showcase .sc-card.sc-pop,
+  .showcase .sc-cheese.sc-go .sc-art, .showcase .sc-cheese.sc-go .sc-pool { animation: none; }
+  .showcase .sc-crack { stroke-dashoffset: 0; }
+}
+</style>
+
+<script>
+// JavaScript: plays the clicked cheese's move (split, stretch or shave), switches its face, and fills the price-tag card.
+(function () {
+  var root = (document.currentScript && document.currentScript.closest('.showcase')) ||
+             document.querySelector('.showcase');
+  if (!root) return;
+
+  // Approximate values per 1 oz (28 g). Edit these to match your favorite brands.
+  var data = {
+    parmesan: { name: 'Parmesan', blurb: 'Shaved fresh: hard, salty and high in protein.',
+      vals: [['Calories', '120'], ['Protein', '11 g'], ['Fat', '8 g'], ['Carbs', '1 g'], ['Sodium', '430 mg']] },
+    mozzarella: { name: 'Mozzarella', blurb: 'Stretchy, mild and milky.',
+      vals: [['Calories', '85'], ['Protein', '6 g'], ['Fat', '6 g'], ['Carbs', '1 g'], ['Sodium', '175 mg']] },
+    burrata: { name: 'Burrata', blurb: 'Cracked open: a creamy center in a soft shell.',
+      vals: [['Calories', '90'], ['Protein', '4 g'], ['Fat', '8 g'], ['Carbs', '1 g'], ['Sodium', '120 mg']] }
+  };
+
+  var buttons = root.querySelectorAll('.sc-cheese');
+  var card = root.querySelector('.sc-card');
+  var title = root.querySelector('.sc-title');
+  var tiles = root.querySelector('.sc-tiles');
+  var note = root.querySelector('.sc-note');
+  var cardTimer;
+
+  function shave(btn) {
+    for (var i = 0; i < 9; i++) {
+      var f = document.createElement('span');
+      f.className = 'sc-flake';
+      f.style.left = (35 + Math.random() * 30) + '%';
+      f.style.animationDelay = (Math.random() * 0.3) + 's';
+      f.style.setProperty('--dx', (Math.random() * 80 - 40) + 'px');
+      btn.appendChild(f);
+      setTimeout(function (el) { el.remove(); }, 1500, f);
+    }
+  }
+
+  function showCard(key) {
+    var d = data[key];
+    title.textContent = d.name + ', per 1 oz (28 g)';
+    tiles.textContent = '';
+    d.vals.forEach(function (v) {
+      var tile = document.createElement('div');
+      tile.className = 'sc-tile';
+      var val = document.createElement('span');
+      val.className = 'sc-val';
+      val.textContent = v[1];
+      var lab = document.createElement('span');
+      lab.className = 'sc-lab';
+      lab.textContent = v[0];
+      tile.appendChild(val);
+      tile.appendChild(lab);
+      tiles.appendChild(tile);
+    });
+    note.textContent = d.blurb + ' Values are approximate and vary by brand.';
+    card.classList.remove('sc-pop');
+    void card.offsetWidth;
+    card.classList.add('sc-pop');
+  }
+
+  buttons.forEach(function (btn) {
+    btn.addEventListener('click', function () {
+      var key = btn.getAttribute('data-cheese');
+      buttons.forEach(function (b) {
+        b.classList.remove('sc-go', 'sc-surprised');
+        b.setAttribute('aria-pressed', b === btn ? 'true' : 'false');
+      });
+      void btn.offsetWidth; // restart the animation if clicked again
+      btn.classList.add('sc-go', 'sc-surprised');
+      if (key === 'parmesan') shave(btn);
+      setTimeout(function () { btn.classList.remove('sc-surprised'); }, 1400);
+      setTimeout(function () { btn.classList.remove('sc-go'); }, 2200);
+      clearTimeout(cardTimer);
+      cardTimer = setTimeout(function () { showCard(key); }, 500);
+    });
+  });
+})();
+</script>
+</div>
+</body>
+</html>
+</div>
 
 <!-- Footer: fill in your name -->
 <footer>Built by Connor Sheppard &middot; BMIS 235</footer>
