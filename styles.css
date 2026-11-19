@@ -1,3 +1,4 @@
+@import url('https://fonts.googleapis.com/css2?family=Fredoka:wght@600&display=swap');
 /* =====================================================================
    styles.css  ·  YOUR BRAND
    ---------------------------------------------------------------------
@@ -10,7 +11,7 @@
    ===================================================================== */
 
 body {
-    font-family: Georgia, "Times New Roman", serif;
+    font-family: 'Fredoka', sans-serif;
     background-color: #f4efe6;
     color: #232b32;
     margin: 0;
