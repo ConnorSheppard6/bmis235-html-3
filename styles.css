@@ -13,6 +13,8 @@
 body {
     font-family: 'Fredoka', sans-serif;
     background-color: #f4efe6;
+    background-image: radial-gradient(#e4dac8 2px, transparent 2px);
+    background-size: 28px 28px;
     color: #232b32;
     margin: 0;
     padding: 0 20px 40px 20px;
