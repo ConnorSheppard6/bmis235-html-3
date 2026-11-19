@@ -13,7 +13,11 @@
 body {
     font-family: 'Fredoka', sans-serif;
     background-color: #f4efe6;
-    background-image: radial-gradient(#e4dac8 2px, transparent 2px);
+    background-image:
+      radial-gradient(#e4dac8 7px, transparent 8px),
+      radial-gradient(#e6dccb 4px, transparent 5px),
+      radial-gradient(#dfd3be 10px, transparent 11px),
+      radial-gradient(#e8dfd0 3px, transparent 4px);
     background-size: 28px 28px;
     color: #232b32;
     margin: 0;
