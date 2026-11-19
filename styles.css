@@ -20,6 +20,7 @@ body {
 /* the menu at the top of every page */
 nav {
     background-color: #1a434e;
+    border-bottom: 5px solid #d95d39;
     padding: 14px;
     text-align: center;
 }
@@ -39,7 +40,7 @@ nav a {
 }
 
 h1 {
-    color: #232b32;
+    color: #d95d39;
     text-align: center;
     font-size: 40px;
 }
